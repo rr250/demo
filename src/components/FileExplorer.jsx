@@ -57,8 +57,26 @@ export default function FileExplorer() {
         setIdCounter((prev) => prev + 1);
     };
 
+    const handleDelete = (delItem) => {
+        setData((prev) => {
+            const deleteItem = (items) => {
+                return items
+                    .filter((item) => item.id !== delItem?.id)
+                    .map((item) =>
+                        item.children
+                            ? { ...item, children: deleteItem(item.children) }
+                            : item
+                    );
+            };
+            return deleteItem(prev);
+        });
+        if (currentId?.id === delItem?.id) {
+            setCurrentId(null);
+        }
+    };
+
     return (
-        <div>
+        <div className="file-explorer">
             <h2>File Explorer</h2>
             <div style={{ marginBottom: "10px" }}>
                 <button onClick={() => handleAdd(false)}>Add File</button>
@@ -74,6 +92,7 @@ export default function FileExplorer() {
                 handleClick={handleClick}
                 openFolders={openFolders}
                 currentId={currentId}
+                handleDelete={handleDelete}
             />
         </div>
     );
