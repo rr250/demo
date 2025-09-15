@@ -1,12 +1,7 @@
 import "./App.css";
-import FileExplorer from "./components/FileExplorer";
 
 function App() {
-    return (
-        <div className="App">
-            <FileExplorer />
-        </div>
-    );
+    return <div className="App"></div>;
 }
 
 export default App;
